@@ -1,6 +1,8 @@
 
-
+/// <reference path='../../node_modules/@types/node/index.d.ts'/>
+declare var require:NodeRequire
 namespace UIHelper {
+
     export let fs = typeof require !== "undefined" && require('fs');
     export function buildProject(this: void, className: string, path: string) {
         if (!fs.existsSync(path)) {

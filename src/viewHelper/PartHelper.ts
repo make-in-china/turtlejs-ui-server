@@ -1,5 +1,5 @@
 
-/// <reference path='../../part/partCore.ts'/>
+/// <reference path='../turtlejs/src/part/partCore.ts'/>
 /**
  * 加载UI
  */
@@ -25,7 +25,7 @@ function renderVMComponent(
             sortPath: string;
             name: string;
         },
-        scripts: VMDOM.VScript[]
+        scripts: (VMDOM.VScript&IVNodeMethod)[]
     ){
         let name:string
         let sortPath:string

@@ -1,5 +1,5 @@
 
-/// <reference path='VDOM.ts'/>
+/// <reference path='../turtlejs/src/virtual/vdom/VDOM.ts'/>
 /// <reference path='javascriptEx/JavaScriptStatement.ts'/>
 /// <reference path='javascriptParser.ts'/>
 class AttrValueFilter{

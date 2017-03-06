@@ -1,0 +1,23 @@
+{
+  "name": "turtlejs-ui-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/make-in-china/turtlejs-ui-server.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/make-in-china/turtlejs-ui-server/issues"
+  },
+  "homepage": "https://github.com/make-in-china/turtlejs-ui-server#readme",
+  "dependencies": {
+    "@types/node": "^7.0.5",
+    "gulp-typescript": "^3.1.5"
+  }
+}

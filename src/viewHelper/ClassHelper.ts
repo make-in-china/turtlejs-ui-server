@@ -1,5 +1,5 @@
 
-/// <reference path='../../part/PartParam.ts'/>
+/// <reference path='../turtlejs/src/part/PartParam.ts'/>
 /// <reference path='PartHelper.ts'/>
 namespace UIHelper {
 
@@ -63,7 +63,7 @@ namespace UIHelper {
         }
     }
     
-    function init_Ref_Part_Info(chds:IArray<VMDOM.VNode>,props:string[],defaultValues:string[],refInfo:RefInfo,scripts: VMDOM.VScript[]){
+    function init_Ref_Part_Info(chds:IArray<VMDOM.VNode>,props:string[],defaultValues:string[],refInfo:RefInfo,scripts: (VMDOM.VScript&IVNodeMethod)[]){
         treeEach(<VMDOM.VNode[]>chds, "childNodes", (node) => {
 
             if (node instanceof VMDOM.VHTMLElement) {
@@ -119,7 +119,7 @@ namespace UIHelper {
                 }
                 //解析class
             } else if (node instanceof VMDOM.VScript) {
-                scripts.push(node);
+                scripts.push(<any>node);
             }
         });
     }
@@ -238,7 +238,7 @@ namespace UIHelper {
         initOrder(chds,path);
         
         let refInfo = new RefInfo;
-        let scripts: VMDOM.VScript[] = [];
+        let scripts: (VMDOM.VScript&IVNodeMethod)[] = [];
         // let paramInfos:PartParam[]=[];
         let props:string[]=[];
         let defaultValues:string[]=[];
