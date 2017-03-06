@@ -24,7 +24,7 @@ interface IDirective{
         params:string[]
     }[]|null
 }
-namespace VMDOM{
+declare namespace VMDOM{
     
     export interface VNodeVMData{
         directives?:IDirective[]
