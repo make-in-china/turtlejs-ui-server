@@ -2,17 +2,7 @@
 var gulp = require('gulp');
 gulp.task('default',function(){
     console.log(`任务列表：
-    project   创建工程
-        name  工程名
-    ui:w      监视ui工程
     vm        构建 uihelper.js`);
-});
-gulp.task('ui:w', function () {
-    var fork=require('child_process').fork;
-    var task=fork('gulp.uiWatch.ts');
-    task.on("message",function(e){
-        console.log(e);
-    });
 });
 var tsconfig={
     // outFile:,
@@ -60,13 +50,4 @@ gulp.task('vm',function(){
     init();
     del(['dist/*']);
     doTSC('src/viewHelper/main.ts','UIHelper.0.1.js')
-});
-gulp.task('project',function(){
-    var args=process.argv.slice(3);
-    var UIHelper=require('./dist/UIHelper.0.1.js').UIHelper;
-    for(const arg of args){
-        let name=arg.replace(/^\-/,'');
-        let path='src/ui/'+name;
-        UIHelper.buildProject(name,path);
-    }
 });
