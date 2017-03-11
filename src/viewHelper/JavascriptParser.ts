@@ -1,4 +1,4 @@
-/// <reference path='../turtlejs/src/virtual/src/javascript/Parser.ts'/>
+/// <reference path='../turtlejs/src/javascript/Parser.ts'/>
 namespace JS{
     
     export interface IJavaScriptParseXState extends IJavaScriptParseState{

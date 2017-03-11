@@ -1,6 +1,6 @@
 
 /// <reference path='../turtlejs/src/virtual/src/vdom/VDOM.ts'/>
-/// <reference path='javascriptEx/JavaScriptStatement.ts'/>
+/// <reference path='../javascriptEx/JavaScriptStatement.ts'/>
 /// <reference path='javascriptParser.ts'/>
 class AttrValueFilter{
     nameStart:number=0
@@ -253,7 +253,7 @@ abstract class VDOM2 extends VDOM {
                         m.textNodeStart = m.index;
                         return;
                     case m.index<m.length-2&&html[m.index+1]==='@':
-                        //@@order   ()   {}     ;
+                        //@@order   ()   {}  nextorder  ()   {}   next order   ;
                         //         可选  可选   前面2个有其中一个时可选
                         m.index+=2;
 
@@ -316,13 +316,17 @@ abstract class VDOM2 extends VDOM {
                             setup=<any>{data:itm};
                             itm=chds[idx];
                         }
+                        let subOrders=Order.orders[name].subOrder;
+                        if( subOrders){
+                            // JS.ParserX
+                        }
                         parseSpace();
                         if(!isString(itm)||itm!==';'){
                             //order;
                             throw new Error("错误的Order语句：语句不完整，缺少';'");
                         }
                         m.node.appendChild($$$(new VMDOM.VOrderData(name,setup),ENodeType.Order));
-
+                        
                         m.textNodeStart = m.index;
                         return;
                     default:

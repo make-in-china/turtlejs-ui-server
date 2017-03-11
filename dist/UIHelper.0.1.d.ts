@@ -3128,6 +3128,7 @@ declare namespace Order {
         setup: IOrderSetup;
         data: IOrderData;
         run(): void;
+        static runOrder(this: void, order: VOrder): void;
         constructor(node: VMDOM.VComment, setup: IOrderSetup);
         static eachOrder(this: void, array: IArray<INode>, fn: (node: VMDOM.VComment, info: IOrderInfo, state: ITreeEachState<INode>) => (eTreeEach | void), beginIndex?: number): ITreeEachReturn<INode> | undefined;
     }

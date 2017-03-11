@@ -5420,7 +5420,7 @@ var JS;
     JS.Parser = Parser;
 })(JS || (JS = {}));
 "use strict";
-/// <reference path='../turtlejs/src/virtual/src/javascript/Parser.ts'/>
+/// <reference path='../turtlejs/src/javascript/Parser.ts'/>
 var JS;
 (function (JS) {
     var ParserX = (function (_super) {
@@ -5477,7 +5477,7 @@ var JS;
 })(JS || (JS = {}));
 "use strict";
 /// <reference path='../turtlejs/src/virtual/src/vdom/VDOM.ts'/>
-/// <reference path='javascriptEx/JavaScriptStatement.ts'/>
+/// <reference path='../javascriptEx/JavaScriptStatement.ts'/>
 /// <reference path='javascriptParser.ts'/>
 var AttrValueFilter = (function () {
     function AttrValueFilter() {
@@ -5703,7 +5703,7 @@ var VDOM2 = (function (_super) {
                         m.textNodeStart = m.index;
                         return;
                     case m.index < m.length - 2 && html[m.index + 1] === '@':
-                        //@@order   ()   {}     ;
+                        //@@order   ()   {}  nextorder  ()   {}   next order   ;
                         //         可选  可选   前面2个有其中一个时可选
                         m.index += 2;
                         var _b = JS.ParserX.parseStatement(html, m.index), length = _b.length, statement = _b.statement;
@@ -5763,6 +5763,10 @@ var VDOM2 = (function (_super) {
                             }
                             setup_1 = { data: itm_1 };
                             itm_1 = chds_2[idx_1];
+                        }
+                        var subOrders = Order.orders[name_9].subOrder;
+                        if (subOrders) {
+                            // JS.ParserX
                         }
                         parseSpace();
                         if (!isString(itm_1) || itm_1 !== ';') {
@@ -7432,7 +7436,7 @@ var DOMScope = (function () {
     return DOMScope;
 }());
 DOMScope.stack = [$rootScope];
-/// <reference path='../virtual/src/javascript/JavaScriptBlock.ts'/>
+/// <reference path='../javascript/JavaScriptBlock.ts'/>
 "use strict";
 var VMDOM;
 (function (VMDOM) {
@@ -7464,7 +7468,7 @@ var VMDOM;
     VMDOM.VOrderData = VOrderData;
 })(VMDOM || (VMDOM = {}));
 /// <reference path='../virtual/src/node/VPlaceHolder.ts'/>
-/// <reference path='../virtual/src/javascript/JavaScriptBlock.ts'/>
+/// <reference path='../javascript/JavaScriptBlock.ts'/>
 /// <reference path='VOrderData.ts'/>
 "use strict";
 var VMDOM;
@@ -7494,6 +7498,7 @@ var VMDOM;
 "use strict";
 /// <reference path='../../scope/DOMScope.ts'/>
 /// <reference path='../../view/VOrder.ts'/>
+/// <reference path='../VScript.ts'/>
 var Order;
 (function (Order) {
     var subOrderNames = [], subOrderRE, orderNames = [], orderRE;
@@ -7878,7 +7883,7 @@ var Order;
     }
 })(Order || (Order = {}));
 /// <reference path='Lib.ts'/>
-/// <reference path='../../virtual/src/javascript/JavaScriptStatement.ts'/>
+/// <reference path='../../javascript/JavaScriptStatement.ts'/>
 "use strict";
 var Order;
 (function (Order) {
@@ -7891,6 +7896,11 @@ var Order;
         }
         VOrder.prototype.run = function () {
             this.constructor.run(this.data);
+        };
+        VOrder.runOrder = function (order) {
+            if (order.run) {
+                order.run();
+            }
         };
         VOrder.eachOrder = function (array, fn, beginIndex) {
             if (beginIndex === void 0) { beginIndex = 0; }
@@ -8035,8 +8045,8 @@ var JS;
 "use strict";
 /// <reference path='../../scope/Scope.ts'/>
 /// <reference path='VOrder.ts'/>
-/// <reference path='../../virtual/src/javascript/Parser.ts'/>
-/// <reference path='../../virtual/src/javascript/logic/Var.ts'/>
+/// <reference path='../../javascript/Parser.ts'/>
+/// <reference path='../../javascript/logic/Var.ts'/>
 var Order;
 (function (Order) {
     var Var = (function (_super) {
@@ -8139,8 +8149,8 @@ var Order;
     ], ScopeOrder);
     Order.ScopeOrder = ScopeOrder;
 })(Order || (Order = {}));
-/// <reference path='../VOrder.ts'/>
-/// <reference path='../../VScript.ts'/>
+/// <reference path='../turtlejs/src/view/order/VOrder.ts'/>
+/// <reference path='../turtlejs/src/view/VScript.ts'/>
 "use strict";
 var OrderEx;
 (function (OrderEx) {
@@ -8152,6 +8162,12 @@ var OrderEx;
     OrderEx.extendsOrderGet = extendsOrderGet;
     OrderEx.extendsOrderFunction = function (clazz, name, fn) {
         Object.defineProperty(clazz.prototype, name, { value: fn });
+    };
+    var runOrder = Order.VOrder.runOrder;
+    Order.VOrder.runOrder = function (order) {
+        if (order.run, canRunAtService(order)) {
+            runOrder.call(Order.VOrder, order);
+        }
     };
     function canRunAtService(order) {
         try {
@@ -8198,7 +8214,6 @@ var Order;
 "use strict";
 /// <reference path='VOrder.ts'/>
 /// <reference path='Break.ts'/>
-/// <reference path='orderEx/Vorder.ts'/>
 /// <reference path='../../virtual/src/node/VPlaceHolder.ts'/>
 var Order;
 (function (Order) {
@@ -8285,7 +8300,11 @@ var Order;
                 }
                 else {
                     if (run) {
-                        runOrder(info, node);
+                        var orderName = info.order;
+                        if (orderName in Order.orders) {
+                            var order = new Order.orders[orderName](node, info.setup);
+                            Order.VOrder.runOrder(order);
+                        }
                     }
                     else {
                         var innerBlock = parseBlock(info, node);
@@ -8304,15 +8323,6 @@ var Order;
             }
             return 4 /* c_noIn */;
         }, beginIndex);
-    }
-    function runOrder(info, node) {
-        var orderName = info.order;
-        if (orderName in Order.orders) {
-            var order = new Order.orders[orderName](node, info.setup);
-            if (order.run && OrderEx.canRunAtService(order)) {
-                order.run();
-            }
-        }
     }
     function parseBlock(info, node) {
         var orderName = info.order;
@@ -8403,7 +8413,7 @@ var Order;
 })(Order || (Order = {}));
 "use strict";
 /// <reference path='VOrder.ts'/>
-/// <reference path='../If.ts'/>
+/// <reference path='../turtlejs/src/view/order/If.ts'/>
 var OrderEx;
 (function (OrderEx) {
     OrderEx.extendsOrderFunction(Order.If, OrderEx.tryRun, function () {
@@ -8632,7 +8642,7 @@ var JS;
 "use strict";
 /// <reference path='RepeatBlockOrder.ts'/>
 /// <reference path='Var.ts'/>
-/// <reference path='../../virtual/src/javascript/logic/For.ts'/>
+/// <reference path='../../javascript/logic/For.ts'/>
 var Order;
 (function (Order) {
     var For = (function (_super) {
@@ -8753,7 +8763,7 @@ var Order;
 })(Order || (Order = {}));
 "use strict";
 /// <reference path='VOrder.ts'/>
-/// <reference path='../For.ts'/>
+/// <reference path='../turtlejs/src/view/order/For.ts'/>
 var OrderEx;
 (function (OrderEx) {
     OrderEx.extendsOrderFunction(Order.For, OrderEx.tryRun, function () {
@@ -8857,7 +8867,7 @@ var Order;
 })(Order || (Order = {}));
 "use strict";
 /// <reference path='VOrder.ts'/>
-/// <reference path='../Switch.ts'/>
+/// <reference path='../turtlejs/src/view/order/Switch.ts'/>
 var OrderEx;
 (function (OrderEx) {
     OrderEx.extendsOrderFunction(Order.Switch, OrderEx.tryRun, function () {
@@ -8902,7 +8912,7 @@ var Order;
 })(Order || (Order = {}));
 "use strict";
 /// <reference path='VOrder.ts'/>
-/// <reference path='../While.ts'/>
+/// <reference path='../turtlejs/src/view/order/While.ts'/>
 var OrderEx;
 (function (OrderEx) {
     OrderEx.extendsOrderFunction(Order.While, OrderEx.tryRun, function () {
@@ -8950,7 +8960,7 @@ var Order;
 })(Order || (Order = {}));
 "use strict";
 /// <reference path='VOrder.ts'/>
-/// <reference path='../Do.ts'/>
+/// <reference path='../turtlejs/src/view/order/Do.ts'/>
 var OrderEx;
 (function (OrderEx) {
     OrderEx.extendsOrderFunction(Order.Do, OrderEx.tryRun, function () {
@@ -8993,7 +9003,7 @@ var Order;
 })(Order || (Order = {}));
 "use strict";
 /// <reference path='VOrder.ts'/>
-/// <reference path='../=.ts'/>
+/// <reference path='../turtlejs/src/view/order/=.ts'/>
 var OrderEx;
 (function (OrderEx) {
     OrderEx.extendsOrderFunction(Order.Equal, OrderEx.tryRun, function () {
@@ -9313,15 +9323,15 @@ var JS;
     JS.registerLogic(Function);
 })(JS || (JS = {}));
 "use strict";
-/// <reference path='../../virtual/src/javascript/JavaScriptExpressions.ts'/>
-/// <reference path='../../virtual/src/javascript/logic/Function.ts'/>
+/// <reference path='../../javascript/JavaScriptExpressions.ts'/>
+/// <reference path='../../javascript/logic/Function.ts'/>
 /// <reference path='VOrder.ts'/>
 "use strict";
 /// <reference path='VOrder.ts'/>
-/// <reference path='../-.ts'/>
+/// <reference path='../turtlejs/src/view/order/-.ts'/>
 "use strict";
 /// <reference path='VOrder.ts'/>
-/// <reference path='../Var.ts'/>
+/// <reference path='../turtlejs/src/view/order/Var.ts'/>
 var OrderEx;
 (function (OrderEx) {
     OrderEx.extendsOrderFunction(Order.Var, OrderEx.tryRun, function () {
@@ -9372,7 +9382,7 @@ var Order;
 })(Order || (Order = {}));
 "use strict";
 /// <reference path='VOrder.ts'/>
-/// <reference path='../Nodes.ts'/>
+/// <reference path='../turtlejs/src/view/order/Nodes.ts'/>
 var OrderEx;
 (function (OrderEx) {
     OrderEx.extendsOrderFunction(Order.Nodes, OrderEx.tryRun, function () {
@@ -9412,7 +9422,7 @@ var Order;
 })(Order || (Order = {}));
 "use strict";
 /// <reference path='VOrder.ts'/>
-/// <reference path='../Elements.ts'/>
+/// <reference path='../turtlejs/src/view/order/Elements.ts'/>
 var OrderEx;
 (function (OrderEx) {
     OrderEx.extendsOrderFunction(Order.Elements, OrderEx.tryRun, function () {
@@ -10084,7 +10094,7 @@ var UIHelper;
 /// <reference path='./VElementHelper.ts'/>
 "use strict";
 /// <reference path='../turtlejs/src/view/order/Scope.ts'/>
-/// <reference path='../turtlejs/src/view/order/orderEx/Index.ts'/>
+/// <reference path='../orderEx/Index.ts'/>
 /// <reference path='Template.ts'/>
 /// <reference path='RefInfo.ts'/>
 /// <reference path='ProjectHelper.ts'/>

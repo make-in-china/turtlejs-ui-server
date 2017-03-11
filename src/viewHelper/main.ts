@@ -9,7 +9,7 @@
 /// <reference path='../turtlejs/src/view/order/Scope.ts'/>
 
 
-/// <reference path='../turtlejs/src/view/order/orderEx/Index.ts'/>
+/// <reference path='../orderEx/Index.ts'/>
 
 /// <reference path='Template.ts'/>
 /// <reference path='RefInfo.ts'/>
