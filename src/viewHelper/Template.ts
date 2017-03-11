@@ -37,7 +37,7 @@ class ${className} extends Component.Part{
         props:string,
         defaultValuesInfo:string
     ){
-        return `/// <reference path="../../../dest/js/turtle.0.1.d.ts"/>
+        return `/// <reference path="../lib.d.ts"/>
 
 //本模块由引擎生成，请勿手动修改此文件
 //生成时间:${(new Date()).toString()}

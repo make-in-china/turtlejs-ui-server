@@ -1,4 +1,4 @@
-/// <reference path='../turtlejs/src/virtual/node/VPlaceHolder.ts'/>
+/// <reference path='../turtlejs/src/virtual/src/node/VPlaceHolder.ts'/>
 
 const enum ENodeType{
     Member=101

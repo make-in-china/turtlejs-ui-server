@@ -208,8 +208,8 @@ var IAttr = (function () {
     return IAttr;
 }());
 "use strict";
-/// <reference path="../../lib/is.ts"/>
-/// <reference path="../../lib/IAttr.ts"/>
+/// <reference path="../../../lib/is.ts"/>
+/// <reference path="../../../lib/IAttr.ts"/>
 var VNamedNodeMap = (function () {
     function VNamedNodeMap() {
         this._length = 0;
@@ -853,7 +853,7 @@ var EventEmitterEx = (function (_super) {
     return EventEmitterEx;
 }(EventEmitter));
 "use strict";
-/// <reference path="../../core/EventEmitterEx.ts"/>
+/// <reference path="../../../core/EventEmitterEx.ts"/>
 var VMDOM;
 (function (VMDOM) {
     var VNodeVMData = (function () {
@@ -969,10 +969,10 @@ var VMDOM;
 /// <reference path='.d.ts'/>
 /// <reference path='VNamedNodeMap.ts'/>
 /// <reference path='VStyle.ts'/>
-/// <reference path='../../lib/HashObject.ts'/>
-/// <reference path='../../lib/ClassList.ts'/>
-/// <reference path='../../lib/Lib.ts'/>
-/// <reference path='../../lib/TypeHelper.ts'/>
+/// <reference path='../../../lib/HashObject.ts'/>
+/// <reference path='../../../lib/ClassList.ts'/>
+/// <reference path='../../../lib/Lib.ts'/>
+/// <reference path='../../../lib/TypeHelper.ts'/>
 /// <reference path='VNodeList.ts'/>
 /// <reference path='VHTMLCollection.ts'/>
 /// <reference path='VNodeVMData.ts'/>
@@ -1875,8 +1875,8 @@ function isTextNode(node) {
 "use strict";
 /// <reference path='VNode.ts'/>
 /// <reference path='VElement.ts'/>
-/// <reference path='../../lib/Encode.ts'/>
-/// <reference path='../../core/Node.ts'/>
+/// <reference path='../../../lib/Encode.ts'/>
+/// <reference path='../../../core/Node.ts'/>
 /// <reference path='Lib.ts'/>
 function isVHTMLElement(node) {
     return node.nodeType === 1 /* Element */;
@@ -3290,7 +3290,7 @@ var VMDOM;
     VMDOM.VQElement = VQElement;
 })(VMDOM || (VMDOM = {}));
 "use strict";
-/// <reference path="../../core/node.ts"/>
+/// <reference path="../../../core/node.ts"/>
 var VMDOM;
 (function (VMDOM) {
     var VScriptElement = (function (_super) {
@@ -5420,7 +5420,7 @@ var JS;
     JS.Parser = Parser;
 })(JS || (JS = {}));
 "use strict";
-/// <reference path='../turtlejs/src/virtual/javascript/Parser.ts'/>
+/// <reference path='../turtlejs/src/virtual/src/javascript/Parser.ts'/>
 var JS;
 (function (JS) {
     var ParserX = (function (_super) {
@@ -5476,7 +5476,7 @@ var JS;
     JS.ParserX = ParserX;
 })(JS || (JS = {}));
 "use strict";
-/// <reference path='../turtlejs/src/virtual/vdom/VDOM.ts'/>
+/// <reference path='../turtlejs/src/virtual/src/vdom/VDOM.ts'/>
 /// <reference path='javascriptEx/JavaScriptStatement.ts'/>
 /// <reference path='javascriptParser.ts'/>
 var AttrValueFilter = (function () {
@@ -5731,7 +5731,7 @@ var VDOM2 = (function (_super) {
                             }
                         };
                         parseSpace();
-                        var setup = void 0;
+                        var setup_1;
                         if (itm_1 instanceof JS.JavaScriptBlock) {
                             idx_1++;
                             count_1++;
@@ -5739,10 +5739,10 @@ var VDOM2 = (function (_super) {
                                 throw new Error("错误的Order语句：语句不完整，缺少';'");
                             }
                             if (itm_1.begin === "(") {
-                                setup = { params: itm_1 };
+                                setup_1 = { params: itm_1 };
                             }
                             else {
-                                setup = { data: itm_1 };
+                                setup_1 = { data: itm_1 };
                             }
                             itm_1 = chds_2[idx_1];
                         }
@@ -5753,15 +5753,15 @@ var VDOM2 = (function (_super) {
                             if (chds_2.length < count_1) {
                                 throw new Error("错误的Order语句：语句不完整，缺少';'");
                             }
-                            if (setup) {
+                            if (setup_1) {
                                 if (itm_1.begin === "(") {
                                     throw new Error("错误的Order语句：重复的()");
                                 }
-                                else if (setup.data) {
+                                else if (setup_1.data) {
                                     throw new Error("错误的Order语句：重复的{}");
                                 }
                             }
-                            setup = { data: itm_1 };
+                            setup_1 = { data: itm_1 };
                             itm_1 = chds_2[idx_1];
                         }
                         parseSpace();
@@ -5769,7 +5769,7 @@ var VDOM2 = (function (_super) {
                             //order;
                             throw new Error("错误的Order语句：语句不完整，缺少';'");
                         }
-                        m.node.appendChild($$$(new VMDOM.VOrderData(name_9, setup), 102 /* Order */));
+                        m.node.appendChild($$$(new VMDOM.VOrderData(name_9, setup_1), 102 /* Order */));
                         m.textNodeStart = m.index;
                         return;
                     default:
@@ -5893,7 +5893,7 @@ var VMDOM;
         VPlaceHolder.call(node, nodeName);
     };
 })(VMDOM || (VMDOM = {}));
-/// <reference path='../turtlejs/src/virtual/node/VPlaceHolder.ts'/>
+/// <reference path='../turtlejs/src/virtual/src/node/VPlaceHolder.ts'/>
 "use strict";
 var VMDOM;
 (function (VMDOM) {
@@ -5917,7 +5917,7 @@ var VMDOM;
     ], VMember);
     VMDOM.VMember = VMember;
 })(VMDOM || (VMDOM = {}));
-/// <reference path='../virtual/node/VPlaceHolder.ts'/>
+/// <reference path='../virtual/src/node/VPlaceHolder.ts'/>
 "use strict";
 var VMDOM;
 (function (VMDOM) {
@@ -6123,7 +6123,7 @@ var XHR = (function () {
     return XHR;
 }());
 "use strict";
-/// <reference path="../virtual/vdom/BaseVNode.ts"/>
+/// <reference path="../virtual/src/vdom/BaseVNode.ts"/>
 var includeJSFiles = (function () {
     var IncludeTask = (function () {
         function IncludeTask(parent, files, callback) {
@@ -6333,7 +6333,7 @@ var loadJS = (function () {
 /// <reference path='../view/order/VOrder.ts'/>
 /// <reference path='../core/XHR.ts'/>
 /// <reference path='../view/Include.ts'/>
-/// <reference path='../virtual/lib/TreeEach.ts'/>
+/// <reference path='../virtual/src/lib/TreeEach.ts'/>
 /// <reference path='Part.ts'/>
 /// <reference path='Store.ts'/>
 /// <reference path='../main/Config.ts'/>
@@ -6935,13 +6935,13 @@ function getParts(childNodes) {
 "use strict";
 /// <reference path='../core/EventEmitterEx.ts'/>
 /// <reference path='../lib/ArrayEx.ts'/>
-/// <reference path='../virtual/lib/TreeEach.ts'/>
+/// <reference path='../virtual/src/lib/TreeEach.ts'/>
 /// <reference path='../lib/lib.ts'/>
 /// <reference path='../lib/is.ts'/>
 /// <reference path="View.ts"/>
 /// <reference path="partCore.ts"/>
 /// <reference path='../scope/DOMScope.ts'/>
-/// <reference path='../virtual/node/VNodeVMData.ts'/>
+/// <reference path='../virtual/src/node/VNodeVMData.ts'/>
 var Component;
 (function (Component) {
     var Part = (function (_super) {
@@ -7357,7 +7357,7 @@ var RootScope = (function () {
     return RootScope;
 }());
 /// <reference path="RootScope.ts"/>
-/// <reference path='../virtual/vdom/VDOM.ts'/>
+/// <reference path='../virtual/src/vdom/VDOM.ts'/>
 "use strict";
 typeof document === "undefined" && (document = $$$('#document'));
 var $rootScope = new RootScope(document);
@@ -7432,7 +7432,7 @@ var DOMScope = (function () {
     return DOMScope;
 }());
 DOMScope.stack = [$rootScope];
-/// <reference path='../virtual/javascript/JavaScriptBlock.ts'/>
+/// <reference path='../virtual/src/javascript/JavaScriptBlock.ts'/>
 "use strict";
 var VMDOM;
 (function (VMDOM) {
@@ -7463,8 +7463,8 @@ var VMDOM;
     }());
     VMDOM.VOrderData = VOrderData;
 })(VMDOM || (VMDOM = {}));
-/// <reference path='../virtual/node/VPlaceHolder.ts'/>
-/// <reference path='../virtual/javascript/JavaScriptBlock.ts'/>
+/// <reference path='../virtual/src/node/VPlaceHolder.ts'/>
+/// <reference path='../virtual/src/javascript/JavaScriptBlock.ts'/>
 /// <reference path='VOrderData.ts'/>
 "use strict";
 var VMDOM;
@@ -7878,7 +7878,7 @@ var Order;
     }
 })(Order || (Order = {}));
 /// <reference path='Lib.ts'/>
-/// <reference path='../../virtual/javascript/JavaScriptStatement.ts'/>
+/// <reference path='../../virtual/src/javascript/JavaScriptStatement.ts'/>
 "use strict";
 var Order;
 (function (Order) {
@@ -8035,8 +8035,8 @@ var JS;
 "use strict";
 /// <reference path='../../scope/Scope.ts'/>
 /// <reference path='VOrder.ts'/>
-/// <reference path='../../virtual/javascript/Parser.ts'/>
-/// <reference path='../../virtual/javascript/logic/Var.ts'/>
+/// <reference path='../../virtual/src/javascript/Parser.ts'/>
+/// <reference path='../../virtual/src/javascript/logic/Var.ts'/>
 var Order;
 (function (Order) {
     var Var = (function (_super) {
@@ -8199,7 +8199,7 @@ var Order;
 /// <reference path='VOrder.ts'/>
 /// <reference path='Break.ts'/>
 /// <reference path='orderEx/Vorder.ts'/>
-/// <reference path='../../virtual/node/VPlaceHolder.ts'/>
+/// <reference path='../../virtual/src/node/VPlaceHolder.ts'/>
 var Order;
 (function (Order) {
     var BlockOrder = (function (_super) {
@@ -8632,7 +8632,7 @@ var JS;
 "use strict";
 /// <reference path='RepeatBlockOrder.ts'/>
 /// <reference path='Var.ts'/>
-/// <reference path='../../virtual/javascript/logic/For.ts'/>
+/// <reference path='../../virtual/src/javascript/logic/For.ts'/>
 var Order;
 (function (Order) {
     var For = (function (_super) {
@@ -9313,8 +9313,8 @@ var JS;
     JS.registerLogic(Function);
 })(JS || (JS = {}));
 "use strict";
-/// <reference path='../../virtual/javascript/JavaScriptExpressions.ts'/>
-/// <reference path='../../virtual/javascript/logic/Function.ts'/>
+/// <reference path='../../virtual/src/javascript/JavaScriptExpressions.ts'/>
+/// <reference path='../../virtual/src/javascript/logic/Function.ts'/>
 /// <reference path='VOrder.ts'/>
 "use strict";
 /// <reference path='VOrder.ts'/>
@@ -9447,7 +9447,7 @@ var UIHelper;
     }
     UIHelper.getClassString = getClassString;
     function getViewString(className, propertyInfo, varInfo, domInitScript, scripts, props, defaultValuesInfo) {
-        return "/// <reference path=\"../../../dest/js/turtle.0.1.d.ts\"/>\n\n//\u672C\u6A21\u5757\u7531\u5F15\u64CE\u751F\u6210\uFF0C\u8BF7\u52FF\u624B\u52A8\u4FEE\u6539\u6B64\u6587\u4EF6\n//\u751F\u6210\u65F6\u95F4:" + (new Date()).toString() + "\n\ninterface I" + className + "Props extends ComponentView.IProps{\n    " + props + "\n}\nclass " + className + "View implements ComponentView.IView{" + (defaultValuesInfo !== '' ? "\n    static defaultValuesInfo=[" + defaultValuesInfo + "];" : "") + "\n    " + propertyInfo + "\n    initDOM(props:I" + className + "Props,nodes?:(VMDOM.VNode&IVNodeMethod)[]){\n        " + varInfo + domInitScript + "\n        " + (scripts !== '' ? "\n        " + scripts : '') + "\n    }\n}\n\n";
+        return "/// <reference path=\"../lib.d.ts\"/>\n\n//\u672C\u6A21\u5757\u7531\u5F15\u64CE\u751F\u6210\uFF0C\u8BF7\u52FF\u624B\u52A8\u4FEE\u6539\u6B64\u6587\u4EF6\n//\u751F\u6210\u65F6\u95F4:" + (new Date()).toString() + "\n\ninterface I" + className + "Props extends ComponentView.IProps{\n    " + props + "\n}\nclass " + className + "View implements ComponentView.IView{" + (defaultValuesInfo !== '' ? "\n    static defaultValuesInfo=[" + defaultValuesInfo + "];" : "") + "\n    " + propertyInfo + "\n    initDOM(props:I" + className + "Props,nodes?:(VMDOM.VNode&IVNodeMethod)[]){\n        " + varInfo + domInitScript + "\n        " + (scripts !== '' ? "\n        " + scripts : '') + "\n    }\n}\n\n";
     }
     UIHelper.getViewString = getViewString;
     function getViewPropertyInfoString(topsType) {

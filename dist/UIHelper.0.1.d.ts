@@ -1,4 +1,4 @@
-/// <reference path="src/turtlejs/src/virtual/node/.d.ts" />
+/// <reference path="src/turtlejs/src/virtual/src/node/.d.ts" />
 /// <reference path="node_modules/@types/node/index.d.ts" />
 /// <reference types="node" />
 interface IArray<T> {
