@@ -1,7 +1,7 @@
 
 /// <reference path='../turtlejs/src/virtual/src/vdom/VDOM.ts'/>
 /// <reference path='../javascriptEx/JavaScriptStatement.ts'/>
-/// <reference path='javascriptParser.ts'/>
+/// <reference path='../javascriptEx/javascriptParser.ts'/>
 class AttrValueFilter{
     nameStart:number=0
     nameEnd:number=0
